@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block parcels %}
+{% block content %}
     <div class="card float-start me-3 mb-3" style="width: 18rem;">
         {% if parcel.photo_parcel %}
             <img src="{{ parcel.photo_parcel.url }}" class="card-img-top" alt="{{ parcel.name }}">

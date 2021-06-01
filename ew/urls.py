@@ -24,6 +24,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', parcels_list, name='home'),
     path('parcel/<int:parcel_id>/', parcel_detail, name='parcel_detail'),
+    path('parcel/add-parcel/', add_parcel, name='add_parcel'),
     #подключить инклуд
     path('novosti/', news_list, name='news'),
     path('novosti/<int:new_id>/', news_detail, name='new')

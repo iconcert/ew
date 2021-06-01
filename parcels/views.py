@@ -10,3 +10,7 @@ def parcels_list(request):
 def parcel_detail(request, parcel_id):
     parcel = get_object_or_404(Parcel, pk=parcel_id)
     return render(request, 'parcels/parcel.html', {'parcel': parcel})
+
+
+def add_parcel(request):
+    return render(request, 'parcels/add_parcel.html')
