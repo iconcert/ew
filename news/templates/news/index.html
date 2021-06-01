@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block news %}
+    <h1>{{ title }}</h1>
+    {% for new in news %}
+        <div class="card float-start me-3 mb-3" style="width: 18rem;">
+            {% if new.image %}
+                <img src="{{ new.image.url }}" class="card-img-top" alt="{{ new.title }}">
+            {% endif %}
+            <div class="card-body">
+                <h5 class="card-title">{{ new.title }}</h5>
+                <p class="card-text">{{ new.body|truncatewords:10 }}</p>
+                <a href="{% url 'new' new.id %}" class="btn btn-primary">Read More</a>
+            </div>
+            <div class="card-footer text-muted">{{ new.created_at|date:'Y-m-d H:i' }}</div>
+        </div>
+    {% endfor %}
+{% endblock %}

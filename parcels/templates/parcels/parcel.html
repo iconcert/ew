@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block parcels %}
+    <div class="card float-start me-3 mb-3" style="width: 18rem;">
+        {% if parcel.photo_parcel %}
+            <img src="{{ parcel.photo_parcel.url }}" class="card-img-top" alt="{{ parcel.name }}">
+        {% endif %}
+        <div class="card-body">
+            <h5 class="card-title">{{ parcel.name }}</h5>
+            <p class="card-text">Track: {{ parcel.tracking_number }}</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">Статус: {{ parcel.get_status_display }}</li>
+                <li class="list-group-item">Warehouse: {{ parcel.get_warehouse_display }}</li>
+            </ul>
+            <a href="#" class="btn btn-primary">{{ parcel.store }}</a>
+        </div>
+        <div class="card-footer text-muted">{{ parcel.date_publish|date:'Y-m-d H:i' }}</div>
+    </div>
+{% endblock %}
+
