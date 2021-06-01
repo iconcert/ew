@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Parcel
+from .forms import ParcelForm
 
 
 def parcels_list(request):
@@ -13,4 +14,8 @@ def parcel_detail(request, parcel_id):
 
 
 def add_parcel(request):
-    return render(request, 'parcels/add_parcel.html')
+    if request.method == 'POST':
+        pass
+    else:
+        form = ParcelForm()
+    return render(request, 'parcels/add_parcel.html', {'form': form})

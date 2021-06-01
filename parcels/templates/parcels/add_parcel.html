@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    Добавление посылки :: {{ block.super }}
+{% endblock %}
 {% block content %}
     <h1>Добавление посылки</h1>
+    <from action="{% url 'add_parcel' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Добавить новость</button>
+    </from>
 {% endblock %}
 
