@@ -32,7 +32,7 @@ class Parcel(models.Model):
     tracking_number = models.CharField('Трекинг номер', max_length=50)
 
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='1')
-    warehouse = models.CharField(max_length=2, choices=WAREHOUSE_CHOICES, default='1')
+    warehouse = models.CharField(max_length=2, choices=WAREHOUSE_CHOICES, default='2')
 
     comment = models.TextField(blank=True)
 
@@ -57,6 +57,7 @@ class Parcel(models.Model):
     class Meta:
         verbose_name = 'Посылка'
         verbose_name_plural = 'Посылки'
+        ordering = ['-date_created']
 
     def __str__(self):
         return self.name
