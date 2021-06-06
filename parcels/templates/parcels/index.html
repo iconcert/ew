@@ -15,7 +15,7 @@
                 </ul>
                 <a href="{{ parcel.get_absolute_url }}" class="btn btn-primary">{{ parcel.store }}</a>
             </div>
-            <div class="card-footer text-muted">{{ parcel.date_publish|date:'Y-m-d H:i' }}</div>
+            <div class="card-footer text-muted">{{ parcel.date_publish|date:'d-m-Y H:i' }}</div>
         </div>
     {% endfor %}
 {% endblock %}
