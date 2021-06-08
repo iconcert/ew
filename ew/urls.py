@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from parcels.views import parcels_list, parcel_detail, add_parcel
+from parcels.views import parcels_list, parcel_detail, parcel_add, parcel_edit
 from news.views import news_list, news_detail
 from django.conf.urls.static import static
 from django.conf import settings
@@ -24,7 +24,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', parcels_list, name='home'),
     path('parcel/<int:parcel_id>/', parcel_detail, name='parcel_detail'),
-    path('parcel/add-parcel/', add_parcel, name='add_parcel'),
+    path('parcel/<int:parcel_id>/edit/', parcel_edit, name='parcel_edit'),
+    path('parcel/parcel-add/', parcel_add, name='parcel_add'),
     #подключить инклуд
     path('novosti/', news_list, name='news'),
     path('novosti/<int:new_id>/', news_detail, name='new')

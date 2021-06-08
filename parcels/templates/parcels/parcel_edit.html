@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Добавление посылки :: {{ block.super }}
+{% endblock %}
+{% block content %}
+    <h1>Добавление посылки</h1>
+    <form method="POST" class="row needs-validation" enctype="multipart/form-data" novalidate>
+        {% csrf_token %}
+
+        {% comment %}
+        {{ form.as_p }}
+        {% endcomment %}
+
+
+        {{ form.non_field_errors }}
+        <div class="col-md-12">
+            <div class="form-check form-switch form-check-inline">
+                {{ form.volume_weight }}
+              <label class="form-check-label" for="{{ form.volume_weight.id_for_label }}">{{ form.volume_weight.label }}</label>
+              <div class="invalid-feedback">{{ form.volume_weight.errors }}</div>
+            </div>
+            <div class="form-check form-check-inline">
+              {{ form.enter_manually }}
+              <label class="form-check-label" for="{{ form.enter_manually.id_for_label }}">
+                {{ form.enter_manually.label }}
+              </label>
+            </div>
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.name.id_for_label }}" class="form-label">{{ form.name.label }}</label>
+            {{ form.name }}
+            <div class="invalid-feedback">{{ form.name.errors }}</div>
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.tracking_number.id_for_label }}" class="form-label">{{ form.tracking_number.label }}</label>
+            {{ form.tracking_number }}
+            <div class="invalid-feedback">{{ form.tracking_number.errors }}</div>
+        </div>
+        <div class="mb-3 col-md-4">
+            <label for="{{ form.store.id_for_label }}" class="form-label">{{ form.store.label }}</label>
+            {{ form.store }}
+            <div class="invalid-feedback">{{ form.store.errors }}</div>
+        </div>
+        <div class="mb-3 col-md-4">
+            <label for="{{ form.status.id_for_label }}" class="form-label">{{ form.status.label }}</label>
+            {{ form.status }}
+        </div>
+        <div class="mb-3 col-md-4">
+            <label for="{{ form.warehouse.id_for_label }}" class="form-label">{{ form.warehouse.label }}</label>
+            {{ form.warehouse }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.comment.id_for_label }}" class="form-label">{{ form.comment.label }}</label>
+            {{ form.comment }}
+        </div>
+        <div class="mb-3">
+            <label for="{{ form.photo_parcel.id_for_label }}" class="form-label">{{ form.photo_parcel.label }}</label>
+            {{ form.photo_parcel }}
+        </div>
+
+        {% comment %}
+        {% for field in form %}
+            <div class="mb-3">
+                {{ field.label_tag }}
+                {{ field }}
+                <div class="invalid-feedback">{{ field.errors }}</div>
+            </div>
+        {% endfor %}
+        {% endcomment %}
+
+        <button type="submit" class="btn btn-primary">Добавить новость</button>
+    </form>
+{% endblock %}
+

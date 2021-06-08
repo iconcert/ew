@@ -14,6 +14,7 @@
                     <li class="list-group-item">Warehouse: {{ parcel.get_warehouse_display }}</li>
                 </ul>
                 <a href="{{ parcel.get_absolute_url }}" class="btn btn-primary">{{ parcel.store }}</a>
+                <a href="{% url 'parcel_edit' parcel.id %}" class="btn btn-primary btn-danger">Edit</a>
             </div>
             <div class="card-footer text-muted">{{ parcel.date_publish|date:'d-m-Y H:i' }}</div>
         </div>

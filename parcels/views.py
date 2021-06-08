@@ -13,7 +13,7 @@ def parcel_detail(request, parcel_id):
     return render(request, 'parcels/parcel.html', {'parcel': parcel})
 
 
-def add_parcel(request):
+def parcel_add(request):
     if request.method == 'POST':
         form = ParcelForm(request.POST, request.FILES)
         if form.is_valid():
@@ -25,4 +25,18 @@ def add_parcel(request):
             return redirect(parcel)
     else:
         form = ParcelForm()
-    return render(request, 'parcels/add_parcel.html', {'form': form})
+    return render(request, 'parcels/parcel_add.html', {'form': form})
+
+
+def parcel_edit(request, parcel_id):
+    parcel = get_object_or_404(Parcel, pk=parcel_id)
+    if request.method == 'POST':
+        form = ParcelForm(request.POST, request.FILES, instance=parcel)
+        if form.is_valid():
+            form.save()
+            parcel = form.save(commit=False)
+            parcel.save()
+            return redirect(parcel)
+    else:
+        form = ParcelForm(instance=parcel)
+    return render(request, 'parcels/parcel_edit.html', {'form': form})
