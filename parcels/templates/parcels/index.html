@@ -1,23 +1,75 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% for parcel in parcels %}
-        <div class="card float-start me-3 mb-3" style="width: 18rem;">
-            {% if parcel.photo_parcel %}
-                <img src="{{ parcel.photo_parcel.url }}" class="card-img-top" alt="{{ parcel.name }}">
-            {% endif %}
-            <div class="card-body">
-                <h5 class="card-title">{{ parcel.name }}</h5>
-                <p class="card-text">Track: {{ parcel.tracking_number }}</p>
-                <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Статус: {{ parcel.get_status_display }}</li>
-                    <li class="list-group-item">Warehouse: {{ parcel.get_warehouse_display }}</li>
-                </ul>
-                <a href="{{ parcel.get_absolute_url }}" class="btn btn-primary">{{ parcel.store }}</a>
-                <a href="{% url 'parcel_edit' parcel.id %}" class="btn btn-primary btn-danger">Edit</a>
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        {% for parcel in parcels %}
+            <div class="col">
+                <div class="card shadow-sm">
+                    {% if parcel.photo_parcel %}
+                        <img src="{{ parcel.photo_parcel.url }}" class="card-img-top" alt="{{ parcel.name }}">
+                    {% endif %}
+
+                    <div class="card-body">
+                        <h5 class="card-title">{{ parcel.name }}</h5>
+                        <p class="card-text">Track: {{ parcel.tracking_number }}</p>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Статус: {{ parcel.get_status_display }}</li>
+                            <li class="list-group-item">Warehouse: {{ parcel.get_warehouse_display }}</li>
+                        </ul>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a href="{{ parcel.get_absolute_url }}" class="btn btn-primary">{{ parcel.store }}</a>
+                                <a href="{% url 'parcel_edit' parcel.id %}" class="btn btn-primary btn-danger">Edit</a>
+                            </div>
+                            <small class="text-muted">{{ parcel.date_publish|date:'d-m-Y H:i' }}</small>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="card-footer text-muted">{{ parcel.date_publish|date:'d-m-Y H:i' }}</div>
-        </div>
-    {% endfor %}
+        {% endfor %}
+    </div>
+
+    <div class="mt-5">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+
+                {% if parcels.has_previous %}
+                    <li class="page-item"><a class="page-link" href="?page=1">&laquo; first</a></li>
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ parcels.previous_page_number }}">Previous</a>
+                    </li>
+                {% endif %}
+
+                {% if parcels.number|add:'-4' > 1 %}
+                    <li class="page-item disabled"><a class="page-link" href="?page={{ parcels.number|add:'-5' }}">&hellip;</a>
+                    </li>
+                {% endif %}
+
+                {% for i in parcels.paginator.page_range %}
+                    {% if parcels.number == i %}
+                        <li class="active page-item aria-current=" page"><span class="page-link">{{ i }}</span></li>
+                    {% elif i > parcels.number|add:'-5' and i < parcels.number|add:'5' %}
+                        <li class="page-item"><a class="page-link" href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+
+                {% if parcels.paginator.num_pages > parcels.number|add:'4' %}
+                    <li class="page-item disabled"><a class="page-link" href="?page={{ parcels.number|add:'5' }}">&hellip;</a>
+                    </li>
+                {% endif %}
+
+                {% if parcels.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ parcels.next_page_number }}">Next</a></li>
+                    <li class="page-item"><a class="page-link" href="?page={{ parcels.paginator.num_pages }}">last&raquo;</a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+
+    </div>
+
+
+
+
 {% endblock %}
 

@@ -1,11 +1,15 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.core.paginator import Paginator
 from .models import Parcel
 from .forms import ParcelForm
 
 
 def parcels_list(request):
-    parcels = Parcel.objects.all()
-    return render(request, 'parcels/index.html', {'parcels': parcels})
+    parcels = Parcel.objects.all().select_related('store')
+    paginator = Paginator(parcels, 9)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'parcels/index.html', {'parcels': page_obj})
 
 
 def parcel_detail(request, parcel_id):
